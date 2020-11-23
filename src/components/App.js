@@ -153,9 +153,30 @@ const states = [
     ],
   },
 ];
+const STATE = 'STATE';
+const CITY = 'CITY';
 
 function App() {
-  return <div id="main"></div>;
+  const [stateIndex,setStateIndex] = useState(0);
+  const [cityIndex,setCityIndex] = useState(0);
+  const [townIndex,setTownIndex] = useState(0);
+  const handleChange =(type,event)=>{
+    console.log(type);
+    console.log(event.target.value);
+  };
+  return (
+  <div id="main">
+    <select>
+      {states.map((state,index)=> <option id={`state${index+1}`} selected={index === stateIndex} onChange={()=>handleChage(STATE,event)} >{state.name}</option>)}
+    </select>
+    <select>
+      {states[stateIndex].cities.map((city,index)=> <option id={`city${index+1}`} selected={index === cityIndex} onChange={()=>handleChage(CITY,event)} >{city.name}</option>)}
+    </select>
+    <select>
+      {states[stateIndex].cities[cityIndex].towns.map((town,index)=> <option id={`town${index+1}`} selected={index === townIndex} >{town.name}</option>)}
+    </select>
+  </div>
+  );
 }
 
 export default App;
