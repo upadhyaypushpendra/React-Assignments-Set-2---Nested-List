@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, { useState } from "react";
 import "./../styles/App.css";
 
 // Do not alter the states const and values inside it.
@@ -10,33 +10,33 @@ const states = [
         name: "Indore",
         towns: [
           {
-            name: "Mhow",
+            name: "Mhow"
           },
           {
-            name: "Dewas",
-          },
-        ],
+            name: "Dewas"
+          }
+        ]
       },
       {
         name: "Bhopal",
         towns: [
           {
-            name: "Manit",
+            name: "Manit"
           },
           {
-            name: "Berasia",
-          },
-        ],
+            name: "Berasia"
+          }
+        ]
       },
       {
         name: "Gwalior",
         towns: [
           {
-            name: "Ajaypur",
-          },
-        ],
-      },
-    ],
+            name: "Ajaypur"
+          }
+        ]
+      }
+    ]
   },
   {
     name: "Jharkhand",
@@ -45,36 +45,36 @@ const states = [
         name: "Dhanbad",
         towns: [
           {
-            name: "IIT(ISM) Dhanbad",
+            name: "IIT(ISM) Dhanbad"
           },
           {
-            name: "Hirapur",
-          },
-        ],
+            name: "Hirapur"
+          }
+        ]
       },
       {
         name: "Wasseypur",
         towns: [
           {
-            name: "Sardar khan's",
+            name: "Sardar khan's"
           },
           {
-            name: "Faizal khan's",
-          },
-        ],
+            name: "Faizal khan's"
+          }
+        ]
       },
       {
         name: "Mirzapur",
         towns: [
           {
-            name: "Kaleen bhaiya's",
+            name: "Kaleen bhaiya's"
           },
           {
-            name: "Guddu bhaiya's",
-          },
-        ],
-      },
-    ],
+            name: "Guddu bhaiya's"
+          }
+        ]
+      }
+    ]
   },
   {
     name: "Assam",
@@ -83,36 +83,36 @@ const states = [
         name: "Guwhati",
         towns: [
           {
-            name: "Amin",
+            name: "Amin"
           },
           {
-            name: "Jalah",
-          },
-        ],
+            name: "Jalah"
+          }
+        ]
       },
       {
         name: "Jungle1",
         towns: [
           {
-            name: "Tiger found at IIT Guwahati",
+            name: "Tiger found at IIT Guwahati"
           },
           {
-            name: "Leopard found in IIT Guwahati",
-          },
-        ],
+            name: "Leopard found in IIT Guwahati"
+          }
+        ]
       },
       {
         name: "Tezpur",
         towns: [
           {
-            name: "Dibrugarh",
+            name: "Dibrugarh"
           },
           {
-            name: "Silchar",
-          },
-        ],
-      },
-    ],
+            name: "Silchar"
+          }
+        ]
+      }
+    ]
   },
   {
     name: "Bihar",
@@ -121,61 +121,100 @@ const states = [
         name: "Patna",
         towns: [
           {
-            name: "Sonpur",
+            name: "Sonpur"
           },
           {
-            name: "Maner",
-          },
-        ],
+            name: "Maner"
+          }
+        ]
       },
       {
         name: "Gaya",
         towns: [
           {
-            name: "Bakraur",
+            name: "Bakraur"
           },
           {
-            name: "Barachatti",
-          },
-        ],
+            name: "Barachatti"
+          }
+        ]
       },
       {
         name: "Darbhanga",
         towns: [
           {
-            name: "Singhwara",
+            name: "Singhwara"
           },
           {
-            name: "Jale",
-          },
-        ],
-      },
-    ],
-  },
+            name: "Jale"
+          }
+        ]
+      }
+    ]
+  }
 ];
-const STATE = 'STATE';
-const CITY = 'CITY';
+
+const STATE = "STATE";
+const CITY = "CITY";
+const TOWN = "TOWN";
 
 function App() {
-  const [stateIndex,setStateIndex] = useState(0);
-  const [cityIndex,setCityIndex] = useState(0);
-  const [townIndex,setTownIndex] = useState(0);
-  const handleChange =(type,event)=>{
-    console.log(type);
-    console.log(event.target.value);
+  const [stateIndex, setStateIndex] = useState(0);
+  const [cityIndex, setCityIndex] = useState(0);
+  const [townIndex, setTownIndex] = useState(0);
+  const handleChange = (event, type) => {
+    switch (type) {
+      case STATE:
+        setStateIndex(event.target.selectedIndex);
+        break;
+      case CITY:
+        setCityIndex(event.target.selectedIndex);
+        break;
+      case TOWN:
+        setTownIndex(event.target.selectedIndex);
+        break;
+      default:
+    }
   };
   return (
-  <div id="main">
-    <select>
-      {states.map((state,index)=> <option id={`state${index+1}`} selected={index === stateIndex} onChange={()=>handleChage(STATE,event)} >{state.name}</option>)}
-    </select>
-    <select>
-      {states[stateIndex].cities.map((city,index)=> <option id={`city${index+1}`} selected={index === cityIndex} onChange={()=>handleChage(CITY,event)} >{city.name}</option>)}
-    </select>
-    <select>
-      {states[stateIndex].cities[cityIndex].towns.map((town,index)=> <option id={`town${index+1}`} selected={index === townIndex} >{town.name}</option>)}
-    </select>
-  </div>
+    <div id="main">
+      <select
+        onChange={(event) => handleChange(event, STATE)}
+        value={states[stateIndex].name}
+      >
+        {states.map((state, index) => (
+          <option id={`state${index + 1}`} key={states[index].name}>
+            {state.name}
+          </option>
+        ))}
+      </select>
+      <select
+        onChange={(event) => handleChange(event, CITY)}
+        value={states[stateIndex].cities[cityIndex].name}
+      >
+        {states[stateIndex].cities.map((city, index) => (
+          <option
+            key={states[stateIndex].cities[index].name}
+            id={`city${index + 1}`}
+          >
+            {city.name}
+          </option>
+        ))}
+      </select>
+      <select
+        onChange={(event) => handleChange(event, TOWN)}
+        value={states[stateIndex].cities[cityIndex].towns[townIndex].name}
+      >
+        {states[stateIndex].cities[cityIndex].towns.map((town, index) => (
+          <option
+            id={`town${index + 1}`}
+            key={states[stateIndex].cities[cityIndex].towns[index].name}
+          >
+            {town.name}
+          </option>
+        ))}
+      </select>
+    </div>
   );
 }
 
